@@ -5,6 +5,7 @@
                 <div class="col-12">
                     <h1 class="title">Bunq.me Receipt Scanner</h1>
                 </div>
+                {{ data }}
                 <div class="col-12 flex-container">
                     <div class="card">
                         <div class="container-fluid p-0">
@@ -93,9 +94,7 @@
         data() {
             return {
                 bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/',
-                data: {
-                    responses: []
-                },
+                response: [],
                 amount: 0.00
             }
         },
@@ -106,29 +105,21 @@
             fetch() {
                 axios.get(`/api/getjson/${this.hash}`).then((data) => {
                     if (data.status === 200) {
-                        this.data = data.data;
-                        var responses = this.data['responses'][0]['textAnnotations'];
-                        console.log(responses);
-
-                        responses.forEach(responseVisualizer);
-                        function responseVisualizer(responseItem) {
-                            var responseContent = responseItem['description'];
-                            var responseLocation = responseItem['__ob__'];
-                            console.log(responseContent);
-                            console.log(responseLocation);
-//                            console.log(responseItem);
-
-                        }
-//                        console.log(responses);
-
+                        this.response = data.data['responses'][0]['fullTextAnnotation']['text'].split(/\r?\n/);
                     }
                 });
-            }
+            },
         },
         computed: {
             hashImgUrl() {
                 return `${this.bucketUrl}${this.hash}.png`;
             },
+            data() {
+                const pattern = RegExp('^[0-9]+(\,[0-9]{1,2})?$');
+                return this.response.filter((data) => {
+                    return pattern.test(data);
+                });
+            }
         },
         destroyed() {
             const tracks = this.mediaStream.getTracks();
