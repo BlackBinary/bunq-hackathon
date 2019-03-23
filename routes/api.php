@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/receipt', 'ApiController@createReceipt');
+Route::get('/accounts', 'ApiController@getAccounts');
+Route::post('/payment', 'ApiController@createPayments');
+Route::get('/payment', 'ApiController@createPayments');
 Route::get('/getjson/{hash}', 'ApiController@getJSON');
 //
 //function (Request $request) {

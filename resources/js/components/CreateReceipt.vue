@@ -22,7 +22,8 @@
             }
         },
         mounted() {
-            navigator.mediaDevices.getUserMedia({video: true})
+            navigator.getUserMedia({video: {facingMode: "environment"}},
+                successCallback, errorCallback)
                 .then(mediaStream => {
                     this.mediaStream = mediaStream
                     this.$refs.video.srcObject = mediaStream
