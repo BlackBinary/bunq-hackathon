@@ -5,7 +5,6 @@
                 <div class="col-12">
                     <h1 class="title">Bunq.me Receipt Scanner</h1>
                 </div>
-                {{ data }}
                 <div class="col-12 flex-container">
                     <div class="card">
                         <div class="container-fluid p-0">
@@ -13,54 +12,37 @@
                                 <div class="col-6">
                                     <h2>Stuur een betaling naar:</h2>
                                     <div class="avatar">
-                                        <img src="https://bunq.me/assets/img/avatar-placeholder.svg" class="rounded-circle" alt="Avatar">
+                                        <img src="https://bunq.me/assets/img/avatar-placeholder.svg"
+                                             class="rounded-circle" alt="Avatar">
                                         <p class="first-name">Joost</p>
                                     </div>
                                     <h2 class="mt-3">Je mag altijd meer betalen!</h2>
                                     <div class="list">
-                                        <div class="item" @click="amount += 6.20">
+                                        <div
+                                            class="item"
+                                            :class="{
+                                                'paid': names[index] !== 'Nog niet betaald...',
+                                                'selected': selectedIndexes.includes(index)
+                                            }"
+                                            v-for="(payment, index) in data"
+                                            @click="addToPaymentSelection(payment, index)"
+                                        >
                                             <div class="content">
-                                                <img src="../../img/plus.svg" alt="Plus">
-                                                <p>Asian Nachos</p>
+                                                <img :src="getIcon(names[index])" alt="Plus">
+                                                <p>{{ names[index] }}</p>
                                             </div>
                                             <div class="price">
-                                                <i>&euro;</i> 6,20
-                                            </div>
-                                        </div>
-                                        <div class="item paid">
-                                            <div class="content">
-                                                <img src="../../img/tick.svg" alt="Tick">
-                                                <p>Lungo</p>
-                                            </div>
-                                            <div class="price">
-                                                Jan-Willem
-                                            </div>
-                                        </div>
-                                        <div class="item" @click="amount += 2.35">
-                                            <div class="content">
-                                                <img src="../../img/plus.svg" alt="Plus">
-                                                <p>Pils Hertog Jan</p>
-                                            </div>
-                                            <div class="price">
-                                                <i>&euro;</i> 2,35
-                                            </div>
-                                        </div>
-                                        <div class="item paid">
-                                            <div class="content">
-                                                <img src="../../img/tick.svg" alt="Tick">
-                                                <p>Pils Hertog Jan</p>
-                                            </div>
-                                            <div class="price">
-                                                Anoniem
+                                                <i>&euro;</i> {{ payment.toFixed(2) }}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="amount-group d-flex">
                                         <h1 class="transaction-amount">
                                             <label for="amount">&euro;</label>
-                                            <input type="number" step=".01" id="amount" v-model="amount.toFixed(2)">
+                                            <input type="number" step=".01" id="amount"
+                                                   v-model="amount.toFixed(2)">
                                         </h1>
-                                        <div v-if="amount > 0" @click="amount = 0.00" class="renew">
+                                        <div v-if="amount > 0" @click="resetEverything" class="renew">
                                             <img src="../../img/renew.svg" alt="renew">
                                         </div>
                                     </div>
@@ -72,7 +54,8 @@
                         </div>
                     </div>
                     <div class="bottom-part">
-                        <button :class="{ 'enough': amount > 0 }" :disabled="!amount > 0">Betaal veilig met iDEAL</button>
+                        <button :class="{ 'enough': amount > 0 }" :disabled="!amount > 0">Betaal veilig met iDEAL
+                        </button>
                         <p>Betaal in plaats daarvan met <a href="https://www.klarna.com/sofort/">Sofort</a></p>
                     </div>
                 </div>
@@ -81,7 +64,7 @@
 
         <!--<img :src="hashImgUrl" alt="Receipt">-->
         <!--<template v-if="data.responses[0]">-->
-            <!--{{ data.responses[0].textAnnotations[0].description }}-->
+        <!--{{ data.responses[0].textAnnotations[0].description }}-->
         <!--</template>-->
     </div>
 
@@ -95,7 +78,22 @@
             return {
                 bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/',
                 response: [],
-                amount: 0.00
+                amount: 0.00,
+                names: [
+                    'Nog niet betaald...',
+                    'Isabelle',
+                    'Floris',
+                    'Olivier',
+                    'Feline',
+                    'Esther',
+                    'Nog niet betaald...',
+                    'Floris',
+                    'Nog niet betaald...',
+                    'Isabelle',
+                    'Feline',
+                    'Nog niet betaald...',
+                ],
+                selectedIndexes: []
             }
         },
         mounted() {
@@ -109,6 +107,23 @@
                     }
                 });
             },
+            getIcon(status) {
+                if (status !== 'Nog niet betaald...') {
+                    return '/images/tick.svg';
+                }
+                return '/images/plus.svg';
+            },
+            addToPaymentSelection(payment, index) {
+                this.amount += payment;
+                this.selectedIndexes.push(index);
+
+                console.log(this.selectedIndexes);
+            },
+            resetEverything() {
+                this.amount = 0.00;
+                this.fetch();
+                this.selectedIndexes = [];
+            }
         },
         computed: {
             hashImgUrl() {
@@ -118,6 +133,8 @@
                 const pattern = RegExp('^[0-9]+(\,[0-9]{1,2})?$');
                 return this.response.filter((data) => {
                     return pattern.test(data);
+                }).map((data) => {
+                    return parseFloat(data.replace(',', '.'));
                 });
             }
         },

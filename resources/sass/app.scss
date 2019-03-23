@@ -20,9 +20,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 128px;
   .card {
     width: 100%;
-    max-width: 650px;
+    max-width: 750px;
     padding: 20px;
     position: relative;
     border: none;
@@ -56,7 +57,7 @@ body {
       .price {
         justify-content: space-between;
         color: $blue;
-        width: 50%;
+        width: 30%;
         i {
           color: $light-grey;
         }
@@ -67,6 +68,7 @@ body {
         padding: 5px 0;
         color: $dark-grey;
         transition: .2s all;
+        position: relative;
         &:not(.paid) {
           cursor: pointer;
           &:hover {
@@ -81,6 +83,13 @@ body {
           pointer-events: none;
           .price {
             color: $light-grey;
+          }
+        }
+        &.selected {
+          background-color: $lighter-grey;
+          pointer-events: none;
+          &:hover {
+            background-color: $lighter-grey;
           }
         }
         img {
@@ -121,7 +130,7 @@ body {
   }
   .bottom-part {
     width: 100%;
-    max-width: 650px;
+    max-width: 750px;
     min-height: 100px;
     background-color: $lightest-grey;
     border-radius: 0 0 $border-radius $border-radius;
