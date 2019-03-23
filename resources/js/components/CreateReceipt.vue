@@ -36,7 +36,7 @@
                 const imageCapture = new window.ImageCapture(mediaStreamTrack)
                 return imageCapture.takePhoto().then(blob => {
                     const data = new FormData();
-                    data.append('receipt', blob, 'receiptImage');
+                    data.append('receipt', blob, 'receiptImage.png');
                     console.log(blob);
                     axios.post('/api/receipt', data, {
                         headers: {
