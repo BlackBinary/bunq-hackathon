@@ -13,7 +13,7 @@
   --purple: #714cbb;
   --pink: #f66D9b;
   --red: #e3342f;
-  --orange: #f6993f;
+  --orange: #ffb142;
   --yellow: #ffed4a;
   --green: #38c172;
   --teal: #4dc0b5;
@@ -10667,92 +10667,109 @@ body {
   text-align: center;
 }
 
-.card {
-  width: 100%;
-  max-width: 650px;
-  border-radius: 12px;
-  padding: 20px;
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.card h2 {
+.flex-container .card {
+  width: 100%;
+  max-width: 650px;
+  padding: 20px;
+  position: relative;
+  border: none;
+  border-radius: 12px 12px 0 0;
+}
+
+.flex-container .card h2 {
   font-size: 17px;
   color: #7F7F7F;
   margin-bottom: 20px;
 }
 
-.card .avatar {
+.flex-container .card .avatar {
   display: flex;
   align-items: center;
   font-size: 28px;
   color: #000;
 }
 
-.card .avatar .first-name {
+.flex-container .card .avatar .first-name {
   margin-bottom: 0;
 }
 
-.card .avatar img {
+.flex-container .card .avatar img {
   width: 50px;
   height: 50px;
   margin-right: 10px;
   border-radius: 12px;
 }
 
-.card .list .content,
-.card .list .price {
+.flex-container .card .list .content,
+.flex-container .card .list .price {
   width: 100%;
   display: flex;
 }
 
-.card .list .price {
+.flex-container .card .list .price {
   justify-content: space-between;
   color: #157efb;
   width: 50%;
 }
 
-.card .list .price i {
+.flex-container .card .list .price i {
   color: #bdbdbd;
 }
 
-.card .list .item {
+.flex-container .card .list .item {
   display: flex;
   align-items: center;
   padding: 5px 0;
   color: #7F7F7F;
+  transition: 0.2s all;
 }
 
-.card .list .item i {
+.flex-container .card .list .item:not(.paid) {
+  cursor: pointer;
+}
+
+.flex-container .card .list .item:not(.paid):hover {
+  background-color: #fafafa;
+}
+
+.flex-container .card .list .item i {
   font-style: normal;
 }
 
-.card .list .item.paid {
+.flex-container .card .list .item.paid {
   color: #bdbdbd;
 }
 
-.card .list .item.paid .price {
+.flex-container .card .list .item.paid .price {
   color: #bdbdbd;
 }
 
-.card .list .item img {
+.flex-container .card .list .item img {
   margin-right: 8px;
 }
 
-.card .list .item p {
+.flex-container .card .list .item p {
   margin: 0;
 }
 
-.card .transaction-amount {
+.flex-container .card .transaction-amount {
   display: flex;
   font-size: 80px;
   color: #157efb;
   font-weight: 300;
 }
 
-.card .transaction-amount label {
+.flex-container .card .transaction-amount label {
   margin: 0 20px 0 0;
 }
 
-.card .transaction-amount input {
+.flex-container .card .transaction-amount input {
   border: none;
   width: 100%;
   outline: none;
@@ -10760,7 +10777,46 @@ body {
   font-weight: 300;
 }
 
-.card img {
+.flex-container .card img {
   border-radius: 12px;
+}
+
+.flex-container .bottom-part {
+  width: 100%;
+  max-width: 650px;
+  min-height: 100px;
+  background-color: #fafafa;
+  border-radius: 0 0 12px 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex-container .bottom-part button {
+  border: none;
+  background-color: #bdbdbd;
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 15px;
+  outline: 0;
+  transition: 0.2s all;
+}
+
+.flex-container .bottom-part button.enough {
+  background-color: #ffb142;
+}
+
+.flex-container .bottom-part p {
+  margin-bottom: 0;
+  color: #bdbdbd;
+  font-weight: 300;
+}
+
+.flex-container .bottom-part p a {
+  text-transform: uppercase;
 }
 
