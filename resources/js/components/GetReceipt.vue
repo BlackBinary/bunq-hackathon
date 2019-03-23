@@ -127,7 +127,7 @@
                 return this.amount > 0;
             },
             setAmount(amount) {
-                this.amount = amount.toFixed(2);
+                this.amount = this.amount + amount;
             }
         },
         computed: {

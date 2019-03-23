@@ -2062,7 +2062,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.amount > 0;
     },
     setAmount: function setAmount(amount) {
-      this.amount = amount.toFixed(2);
+      this.amount = this.amount + amount;
     }
   },
   computed: {
