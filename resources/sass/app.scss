@@ -50,6 +50,10 @@ body {
       }
     }
     .list {
+      max-height: 200px;
+      overflow: auto;
+      position: relative;
+
       .content, .price {
         width: 100%;
         display: flex;
