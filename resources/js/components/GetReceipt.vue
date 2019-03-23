@@ -57,7 +57,7 @@
                                     <div class="amount-group d-flex">
                                         <h1 class="transaction-amount">
                                             <label for="amount">&euro;</label>
-                                            <input type="number" step=".01" id="amount" v-model="amount">
+                                            <input type="number" step=".01" id="amount" v-model="amount.toFixed(2)">
                                         </h1>
                                         <div v-if="checkAmount()" @click="amount = 0.00" class="renew">
                                             <img src="../../img/renew.svg" alt="renew">
