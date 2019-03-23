@@ -1,12 +1,13 @@
 <template>
-    <div class="camera-modal">
-        <video ref="video" class="camera-stream"/>
-        <div class="camera-modal-container">
-            <span @click="capture"
-                  class="take-picture-button take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-            <i class="material-icons">CAPTURE</i>
-            </span>
-            <span @click="share">SHARE</span>
+    <div class="flex-container">
+        <div class="card">
+            <div class="camera-modal">
+                <video ref="video" class="camera-stream" />
+            </div>
+            <div class="bottom-part custom-flex">
+                <button @click="capture" class="ml-3">Maak een foto!</button>
+                <button @click="share">Deel de foto!</button>
+            </div>
         </div>
     </div>
 
