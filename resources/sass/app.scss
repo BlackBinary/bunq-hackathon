@@ -78,6 +78,7 @@ body {
         }
         &.paid {
           color: $light-grey;
+          pointer-events: none;
           .price {
             color: $light-grey;
           }
