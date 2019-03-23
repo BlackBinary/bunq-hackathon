@@ -4,25 +4,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+use GoogleCloudVision\GoogleCloudVision;
+use GoogleCloudVision\Request\AnnotateImageRequest;
 
 class ApiController extends Controller
 {
     protected $visionClient;
+    protected $projectId = 'bunq-hackathon';
 
     public function __construct()
     {
-        $this->visionClient = new ImageAnnotatorClient();
-        putenv('GOOGLE_APPLICATION_CREDENTIALS' . base_path('google-cloud-credentials.json'));
     }
 
     public function receipt(Request $request)
     {
-        $blobData = $request->receipt;
-        $response = $this->visionClient->textDetection($blobData);
-        $texts = $response->getTextAnnotations();
+        $image = base64_encode(file_get_contents($request->receipt));
 
-        return $texts;
+        $request = new AnnotateImageRequest();
+        $request->setImage($image);
+        $request->setFeature("TEXT_DETECTION");
+        $gcvRequest = new GoogleCloudVision([$request],  env('GOOGLE_CLOUD_KEY'));
+        //send annotation request
+        $response = $gcvRequest->annotate();
+
+        return response()->json(["description" => $response->responses[0]->textAnnotations]);
 
     }
 
