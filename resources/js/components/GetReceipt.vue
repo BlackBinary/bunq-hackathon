@@ -17,7 +17,7 @@
                                     </div>
                                     <h2 class="mt-3">Je mag altijd meer betalen!</h2>
                                     <div class="list">
-                                        <div class="item" @click="setAmount(6.20)">
+                                        <div class="item" @click="amount += 6.20">
                                             <div class="content">
                                                 <img src="../../img/plus.svg" alt="Plus">
                                                 <p>Asian Nachos</p>
@@ -35,7 +35,7 @@
                                                 Jan-Willem
                                             </div>
                                         </div>
-                                        <div class="item" @click="setAmount(2.35)">
+                                        <div class="item" @click="amount += 2.35">
                                             <div class="content">
                                                 <img src="../../img/plus.svg" alt="Plus">
                                                 <p>Pils Hertog Jan</p>
@@ -59,7 +59,7 @@
                                             <label for="amount">&euro;</label>
                                             <input type="number" step=".01" id="amount" v-model="amount.toFixed(2)">
                                         </h1>
-                                        <div v-if="checkAmount()" @click="amount = 0.00" class="renew">
+                                        <div v-if="amount > 0" @click="amount = 0.00" class="renew">
                                             <img src="../../img/renew.svg" alt="renew">
                                         </div>
                                     </div>
@@ -71,14 +71,13 @@
                         </div>
                     </div>
                     <div class="bottom-part">
-                        <button :class="{ 'enough': checkAmount() }" :disabled="!checkAmount()">Betaal veilig met iDEAL</button>
+                        <button :class="{ 'enough': amount > 0 }" :disabled="!amount > 0">Betaal veilig met iDEAL</button>
                         <p>Betaal in plaats daarvan met <a href="https://www.klarna.com/sofort/">Sofort</a></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        {{ hashData }}
         <img :src="hashImgUrl" alt="Receipt">
         <template v-if="data.responses[0]">
             {{ data.responses[0].textAnnotations[0].description }}
@@ -96,7 +95,8 @@
                 bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/',
                 data: {
                     responses: []
-                }
+                },
+                amount: 0.00
             }
         },
         mounted() {
