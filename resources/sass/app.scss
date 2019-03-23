@@ -43,13 +43,31 @@ body {
     }
   }
   .list {
+    .content, .price {
+      width: 100%;
+      display: flex;
+    }
+    .price {
+      justify-content: space-between;
+      color: $blue;
+      width: 50%;
+      i {
+        color: $light-grey;
+      }
+    }
     .item {
       display: flex;
       align-items: center;
       padding: 5px 0;
       color: $dark-grey;
+      i {
+        font-style: normal;
+      }
       &.paid {
         color: $light-grey;
+        .price {
+          color: $light-grey;
+        }
       }
       img {
         margin-right: 8px;
@@ -62,7 +80,7 @@ body {
   .transaction-amount {
     display: flex;
     font-size: 80px;
-    color: #404040;
+    color: $blue;
     font-weight: 300;
     label {
       margin: 0 20px 0 0;
@@ -71,7 +89,7 @@ body {
       border: none;
       width: 100%;
       outline: none;
-      color: #404040;
+      color: $blue;
       font-weight: 300;
     }
   }
