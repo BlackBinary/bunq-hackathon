@@ -29,8 +29,8 @@ class ApiController extends Controller
     {
         \Log::debug($this->getS3($this->createImageKey($hash)));
         return response()->json([
-            'image' => $this->getS3($this->createImageKey($hash))['body'],
-            'text' => $this->getS3($this->createTextKey($hash))['body']
+            'image' => $this->getS3($this->createImageKey($hash)),
+            'text' => $this->getS3($this->createTextKey($hash))
         ]);
     }
 
@@ -38,18 +38,20 @@ class ApiController extends Controller
     {
         $hash = $this->generateHash();
 
-        $image = base64_encode(file_get_contents($request->receipt));
+        $image = $request->receipt;
+
+        $base64Image = base64_encode(file_get_contents($image));
 
         $request = new AnnotateImageRequest();
-        $request->setImage($image);
+        $request->setImage($base64Image);
         $request->setFeature("TEXT_DETECTION");
         $gcvRequest = new GoogleCloudVision([$request], env('GOOGLE_CLOUD_KEY'));
         //send annotation request
         $response = $gcvRequest->annotate();
 
 
-        $this->storeS3($this->createImageKey($hash), $image, 'image/png');
-        $this->storeS3($this->createTextKey($hash), json_encode($response), 'application/json');
+        $this->storeS3File($this->createImageKey($hash), $image, 'image/png');
+        $this->storeS3Object($this->createTextKey($hash), json_encode($response), 'application/json');
 
         return response()->json([
             'hash' => $hash
@@ -66,7 +68,7 @@ class ApiController extends Controller
         return $result;
     }
 
-    public function storeS3($key, $body, $mime)
+    public function storeS3Object($key, $body, $mime)
     {
         $result = $this->S3Client->putObject([
             'Bucket' => env('BUCKET_NAME'),
@@ -79,14 +81,27 @@ class ApiController extends Controller
         return $result;
     }
 
+    public function storeS3File($key, $file, $mime)
+    {
+        $result = $this->S3Client->putObject([
+            'Bucket' => env('BUCKET_NAME'),
+            'Key' => $key,
+            'SourceFile' => $file,
+            'ContentType' => $mime,
+            'ACL' => 'public-read'
+        ]);
+
+        return $result;
+    }
+
     public function createImageKey($hash)
     {
-        return $hash . '.image';
+        return $hash . '.png';
     }
 
     public function createTextKey($hash)
     {
-        return $hash . '.text';
+        return $hash . '.json';
     }
 
     public function generateHash()

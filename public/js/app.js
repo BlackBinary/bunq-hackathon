@@ -1841,6 +1841,162 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      mediaStream: null,
+      amount: 0.00
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    navigator.mediaDevices.getUserMedia({
+      video: true
+    }).then(function (mediaStream) {
+      _this.mediaStream = mediaStream;
+      _this.$refs.video.srcObject = mediaStream;
+
+      _this.$refs.video.play();
+    }).catch(function (error) {
+      return console.error('getUserMedia() error:', error);
+    });
+  },
+  methods: {
+    capture: function capture() {
+      var mediaStreamTrack = this.mediaStream.getVideoTracks()[0];
+      var imageCapture = new window.ImageCapture(mediaStreamTrack);
+      return imageCapture.takePhoto().then(function (blob) {
+        var data = new FormData();
+        data.append('receipt', blob, 'receiptImage');
+        console.log(data);
+        axios.post('/api/receipt', data, {
+          headers: {
+            'Content-Type': "multipart/form-data; boundary=".concat(data._boundary)
+          },
+          timeout: 30000
+        }).then(function (data) {
+          console.log(data);
+        });
+      });
+    },
+    checkAmount: function checkAmount() {
+      return this.amount > 0;
+    },
+    setAmount: function setAmount(amount) {
+      this.amount = amount.toFixed(2);
+    }
+  },
+  destroyed: function destroyed() {
+    var tracks = this.mediaStream.getTracks();
+    tracks.map(function (track) {
+      return track.stop();
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GetReceipt.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GetReceipt.vue?vue&type=script&lang=js& ***!
@@ -1854,17 +2010,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GetReceipt",
   props: ['hash'],
+  data: function data() {
+    return {
+      bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/'
+    };
+  },
   mounted: function mounted() {
-    axios.get("/api/receipt/".concat(this.hash)).then(function (data) {
-      console.log(data); // if (data.status === 200) {
-      //
-      //     this.hash = data.data.hash;
-      // }
-    });
     console.log(this.hash);
+  },
+  computed: {
+    hashImgUrl: function hashImgUrl() {
+      return "".concat(this.bucketUrl).concat(this.hash, ".png");
+    },
+    hashData: function hashData() {
+      return axios.get("".concat(this.bucketUrl).concat(this.hash, ".json")).then(function (data) {
+        console.log(data); // if (data.status === 200) {
+        //
+        //     this.hash = data.data.hash;
+        // }
+      });
+    }
   }
 });
 
@@ -37597,146 +37770,250 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 flex-container" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "container-fluid p-0" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-6" }, [
+                  _c("h2", [_vm._v("Stuur een betaling naar:")]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("h2", { staticClass: "mt-3" }, [
+                    _vm._v("Je mag altijd meer betalen!")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "list" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "item",
+                        on: {
+                          click: function($event) {
+                            return _vm.setAmount(6.2)
+                          }
+                        }
+                      },
+                      [_vm._m(2), _vm._v(" "), _vm._m(3)]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "item",
+                        on: {
+                          click: function($event) {
+                            return _vm.setAmount(2.35)
+                          }
+                        }
+                      },
+                      [_vm._m(5), _vm._v(" "), _vm._m(6)]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(7)
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "amount-group d-flex" }, [
+                    _c("h1", { staticClass: "transaction-amount" }, [
+                      _c("label", { attrs: { for: "amount" } }, [_vm._v("€")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.amount,
+                            expression: "amount"
+                          }
+                        ],
+                        attrs: { type: "number", step: ".01", id: "amount" },
+                        domProps: { value: _vm.amount },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.amount = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.checkAmount()
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "renew",
+                            on: {
+                              click: function($event) {
+                                _vm.amount = 0.0
+                              }
+                            }
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: __webpack_require__(/*! ../../img/renew.svg */ "./resources/img/renew.svg"),
+                                alt: "renew"
+                              }
+                            })
+                          ]
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(8)
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "bottom-part" }, [
+            _c(
+              "button",
+              {
+                class: { enough: _vm.checkAmount() },
+                attrs: { disabled: !_vm.checkAmount() }
+              },
+              [_vm._v("Betaal veilig met iDEAL")]
+            ),
+            _vm._v(" "),
+            _vm._m(9)
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("h1", { staticClass: "title" }, [
-              _vm._v("Bunq.me Receipt Scanner")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 d-flex justify-content-center" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "container-fluid p-0" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-6" }, [
-                    _c("h2", [_vm._v("Stuur een betaling naar:")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "avatar" }, [
-                      _c("img", {
-                        staticClass: "rounded-circle",
-                        attrs: {
-                          src:
-                            "https://bunq.me/assets/img/avatar-placeholder.svg",
-                          alt: "Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "first-name" }, [_vm._v("Joost")])
-                    ]),
-                    _vm._v(" "),
-                    _c("h2", { staticClass: "mt-3" }, [
-                      _vm._v("Je mag altijd meer betalen!")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "list" }, [
-                      _c("div", { staticClass: "item" }, [
-                        _c("div", { staticClass: "content" }, [
-                          _c("img", {
-                            attrs: {
-                              src: __webpack_require__(/*! ../../img/plus.svg */ "./resources/img/plus.svg"),
-                              alt: "Plus"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Asian Nachos")])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "price" }, [
-                          _c("i", [_vm._v("€")]),
-                          _vm._v(
-                            " 6,20\n                                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item paid" }, [
-                        _c("div", { staticClass: "content" }, [
-                          _c("img", {
-                            attrs: {
-                              src: __webpack_require__(/*! ../../img/tick.svg */ "./resources/img/tick.svg"),
-                              alt: "Tick"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Lungo")])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "price" }, [
-                          _vm._v(
-                            "\n                                            Jan-Willem\n                                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item" }, [
-                        _c("div", { staticClass: "content" }, [
-                          _c("img", {
-                            attrs: {
-                              src: __webpack_require__(/*! ../../img/plus.svg */ "./resources/img/plus.svg"),
-                              alt: "Plus"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Pils Hertog Jan")])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "price" }, [
-                          _c("i", [_vm._v("€")]),
-                          _vm._v(
-                            " 2,35\n                                        "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "item paid" }, [
-                        _c("div", { staticClass: "content" }, [
-                          _c("img", {
-                            attrs: {
-                              src: __webpack_require__(/*! ../../img/tick.svg */ "./resources/img/tick.svg"),
-                              alt: "Tick"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Pils Hertog Jan")])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "price" }, [
-                          _vm._v(
-                            "\n                                            Anoniem\n                                        "
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("h1", { staticClass: "transaction-amount" }, [
-                      _c("label", { attrs: { for: "amount" } }, [_vm._v("€")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        attrs: { type: "text", id: "amount", value: "0,00" }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-6" }, [
-                    _c("img", {
-                      staticClass: "w-100",
-                      attrs: { src: __webpack_require__(/*! ../../img/IMG_5923.jpg */ "./resources/img/IMG_5923.jpg"), alt: "" }
-                    })
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "col-12" }, [
+      _c("h1", { staticClass: "title" }, [_vm._v("Bunq.me Receipt Scanner")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "avatar" }, [
+      _c("img", {
+        staticClass: "rounded-circle",
+        attrs: {
+          src: "https://bunq.me/assets/img/avatar-placeholder.svg",
+          alt: "Avatar"
+        }
+      }),
+      _vm._v(" "),
+      _c("p", { staticClass: "first-name" }, [_vm._v("Joost")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("img", { attrs: { src: __webpack_require__(/*! ../../img/plus.svg */ "./resources/img/plus.svg"), alt: "Plus" } }),
+      _vm._v(" "),
+      _c("p", [_vm._v("Asian Nachos")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "price" }, [
+      _c("i", [_vm._v("€")]),
+      _vm._v(" 6,20\n                                        ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "item paid" }, [
+      _c("div", { staticClass: "content" }, [
+        _c("img", {
+          attrs: { src: __webpack_require__(/*! ../../img/tick.svg */ "./resources/img/tick.svg"), alt: "Tick" }
+        }),
+        _vm._v(" "),
+        _c("p", [_vm._v("Lungo")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "price" }, [
+        _vm._v(
+          "\n                                            Jan-Willem\n                                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("img", { attrs: { src: __webpack_require__(/*! ../../img/plus.svg */ "./resources/img/plus.svg"), alt: "Plus" } }),
+      _vm._v(" "),
+      _c("p", [_vm._v("Pils Hertog Jan")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "price" }, [
+      _c("i", [_vm._v("€")]),
+      _vm._v(" 2,35\n                                        ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "item paid" }, [
+      _c("div", { staticClass: "content" }, [
+        _c("img", {
+          attrs: { src: __webpack_require__(/*! ../../img/tick.svg */ "./resources/img/tick.svg"), alt: "Tick" }
+        }),
+        _vm._v(" "),
+        _c("p", [_vm._v("Pils Hertog Jan")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "price" }, [
+        _vm._v(
+          "\n                                            Anoniem\n                                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c("img", {
+        staticClass: "w-100",
+        attrs: { src: __webpack_require__(/*! ../../img/IMG_5923.jpg */ "./resources/img/IMG_5923.jpg"), alt: "" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v("Betaal in plaats daarvan met "),
+      _c("a", { attrs: { href: "https://www.klarna.com/sofort/" } }, [
+        _vm._v("Sofort")
       ])
     ])
   }
@@ -37762,7 +38039,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c("img", { attrs: { src: _vm.hashImgUrl, alt: "Receipt" } }),
+    _vm._v("\n\n    " + _vm._s(_vm.hashData) + "\n")
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49929,6 +50209,17 @@ module.exports = "/images/plus.svg?0b608b6a42361695a2e133bde1de2900";
 
 /***/ }),
 
+/***/ "./resources/img/renew.svg":
+/*!*********************************!*\
+  !*** ./resources/img/renew.svg ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/renew.svg?3d10c196a7159034be4a64ccdc71818b";
+
+/***/ }),
+
 /***/ "./resources/img/tick.svg":
 /*!********************************!*\
   !*** ./resources/img/tick.svg ***!
@@ -50117,17 +50408,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e&scoped=true& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&scoped=true&");
-/* harmony import */ var _ExampleComponent_vue_vue_type_style_index_0_id_299e239e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=style&index=0&id=299e239e&scoped=true&lang=css& */ "./resources/js/components/ExampleComponent.vue?vue&type=style&index=0&id=299e239e&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ExampleComponent_vue_vue_type_style_index_0_id_299e239e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=style&index=0&id=299e239e&scoped=true&lang=css& */ "./resources/js/components/ExampleComponent.vue?vue&type=style&index=0&id=299e239e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ExampleComponent_vue_vue_type_template_id_299e239e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ExampleComponent_vue_vue_type_template_id_299e239e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -50141,6 +50434,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/ExampleComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
