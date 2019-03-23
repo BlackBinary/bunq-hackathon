@@ -78,10 +78,10 @@
             </div>
         </div>
 
-        <img :src="hashImgUrl" alt="Receipt">
-        <template v-if="data.responses[0]">
-            {{ data.responses[0].textAnnotations[0].description }}
-        </template>
+        <!--<img :src="hashImgUrl" alt="Receipt">-->
+        <!--<template v-if="data.responses[0]">-->
+            <!--{{ data.responses[0].textAnnotations[0].description }}-->
+        <!--</template>-->
     </div>
 
 </template>
