@@ -17,20 +17,40 @@
                                     </div>
                                     <h2 class="mt-3">Je mag altijd meer betalen!</h2>
                                     <div class="list">
-                                        <div
-                                            class="item"
-                                            :class="{ 'paid': payment.personPaid !== null }"
-                                            v-for="payment in payments"
-                                            :key="payment.key"
-                                            @click="payItem(payment.amount, $event)"
-                                        >
+                                        <div class="item" @click="amount += 6.20">
                                             <div class="content">
-                                                <img :src="payment.personPaid !== null ? '/images/tick.svg' : '/images/plus.svg'">
-                                                <p>{{ payment.item }}</p>
+                                                <img src="../../img/plus.svg" alt="Plus">
+                                                <p>Asian Nachos</p>
                                             </div>
                                             <div class="price">
-                                                <i v-if="payment.personPaid === null">&euro;</i>
-                                                {{ payment.personPaid !== null ? payment.personPaid : payment.amount.toFixed(2) }}
+                                                <i>&euro;</i> 6,20
+                                            </div>
+                                        </div>
+                                        <div class="item paid">
+                                            <div class="content">
+                                                <img src="../../img/tick.svg" alt="Tick">
+                                                <p>Lungo</p>
+                                            </div>
+                                            <div class="price">
+                                                Jan-Willem
+                                            </div>
+                                        </div>
+                                        <div class="item" @click="amount += 2.35">
+                                            <div class="content">
+                                                <img src="../../img/plus.svg" alt="Plus">
+                                                <p>Pils Hertog Jan</p>
+                                            </div>
+                                            <div class="price">
+                                                <i>&euro;</i> 2,35
+                                            </div>
+                                        </div>
+                                        <div class="item paid">
+                                            <div class="content">
+                                                <img src="../../img/tick.svg" alt="Tick">
+                                                <p>Pils Hertog Jan</p>
+                                            </div>
+                                            <div class="price">
+                                                Anoniem
                                             </div>
                                         </div>
                                     </div>
@@ -39,7 +59,7 @@
                                             <label for="amount">&euro;</label>
                                             <input type="number" step=".01" id="amount" v-model="amount.toFixed(2)">
                                         </h1>
-                                        <div v-if="amount > 0" @click="resetAmounts" class="renew">
+                                        <div v-if="amount > 0" @click="amount = 0.00" class="renew">
                                             <img src="../../img/renew.svg" alt="renew">
                                         </div>
                                     </div>
@@ -76,29 +96,7 @@
                 data: {
                     responses: []
                 },
-                amount: 0.00,
-                payments: {
-                    0: {
-                        amount: 6.20,
-                        item: 'Asian Nachos',
-                        personPaid: null
-                    },
-                    1: {
-                        amount: 2.60,
-                        item: 'Lungo',
-                        personPaid: 'Jan-Willem'
-                    },
-                    2: {
-                        amount: 2.35,
-                        item: 'Pils Hertog Jan',
-                        personPaid: null
-                    },
-                    3: {
-                        amount: 2.35,
-                        item: 'Pils Hertog Jan',
-                        personPaid: 'Anoniem'
-                    }
-                }
+                amount: 0.00
             }
         },
         mounted() {
@@ -109,21 +107,22 @@
                 axios.get(`/api/getjson/${this.hash}`).then((data) => {
                     if (data.status === 200) {
                         this.data = data.data;
-                        // console.log(this.data);
+                        var responses = this.data['responses'][0]['textAnnotations'];
+                        console.log(responses);
+
+                        responses.forEach(responseVisualizer);
+                        function responseVisualizer(responseItem) {
+                            var responseContent = responseItem['description'];
+                            var responseLocation = responseItem['__ob__'];
+                            console.log(responseContent);
+                            console.log(responseLocation);
+//                            console.log(responseItem);
+
+                        }
+//                        console.log(responses);
+
                     }
                 });
-            },
-            payItem(decimal, event) {
-                this.amount += decimal;
-                event.currentTarget.className += ' paid';
-                event.currentTarget.querySelector('.content img').src = '/images/tick.svg';
-                event.currentTarget.querySelector('.price').innerHTML = 'Joost';
-
-                // console.log(document.getElementsByClassName('item'));
-            },
-            resetAmounts() {
-                this.amount = 0.00;
-                this.fetch();
             }
         },
         computed: {
@@ -135,7 +134,9 @@
             const tracks = this.mediaStream.getTracks();
             tracks.map(track => track.stop())
         }
+
     }
+
 </script>
 
 <style scoped>
