@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/receipt', 'ApiController@receipt');
+Route::post('/receipt', 'ApiController@createReceipt');
+Route::get('/receipt/{hash}', 'ApiController@getReceipt');
 //
 //function (Request $request) {
 //    \Log::debug($request);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class WebController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,5 +23,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function createReceipt()
+    {
+        return view('createReceipt');
+    }
+
+    public function getReceipt($hash)
+    {
+        return view('getReceipt', ['hash' => $hash]);
     }
 }
