@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers;
 
-use finfo;
 use Illuminate\Http\Request;
 use GoogleCloudVision\GoogleCloudVision;
 use GoogleCloudVision\Request\AnnotateImageRequest;
@@ -41,9 +40,6 @@ class ApiController extends Controller
 
         $image = base64_encode(file_get_contents($request->receipt));
 
-        return mime_content_type(file_get_contents($request->receipt));
-
-
         $request = new AnnotateImageRequest();
         $request->setImage($image);
         $request->setFeature("TEXT_DETECTION");
@@ -52,8 +48,8 @@ class ApiController extends Controller
         $response = $gcvRequest->annotate();
 
 
-        $this->storeS3($this->createImageKey($hash), $image);
-        $this->storeS3($this->createTextKey($hash), json_encode($response));
+        $this->storeS3($this->createImageKey($hash), $image, 'image/png');
+        $this->storeS3($this->createTextKey($hash), json_encode($response), 'application/json');
 
         return response()->json([
             'hash' => $hash
@@ -70,12 +66,13 @@ class ApiController extends Controller
         return $result;
     }
 
-    public function storeS3($key, $body)
+    public function storeS3($key, $body, $mime)
     {
         $result = $this->S3Client->putObject([
             'Bucket' => env('BUCKET_NAME'),
             'Key' => $key,
             'Body' => $body,
+            'ContentType' => $mime,
             'ACL' => 'public-read'
         ]);
 
@@ -95,13 +92,6 @@ class ApiController extends Controller
     public function generateHash()
     {
         return bin2hex(random_bytes(16));
-    }
-
-    public function getMimeType($blob)
-    {
-        $finfo = new finfo(FILEINFO_MIME);
-        $mimeType = $finfo->buffer($blob);
-        return $mimeType;
     }
 
 }
