@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15.19775" height="15.19775" viewBox="0 0 15.19775 15.19775">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #157efb;
+      }
+    </style>
+  </defs>
+  <title>BUNQ ME RECEIPT SCANNER</title>
+  <g id="Layer_1" data-name="Layer 1">
+    <path class="cls-1" d="M13.69775,6.09888H9.09888V1.5a1.5,1.5,0,1,0-3,0V6.09888H1.5a1.5,1.5,0,0,0,0,3H6.09888v4.59887a1.5,1.5,0,0,0,3,0V9.09888h4.59887a1.5,1.5,0,0,0,0-3Z"/>
+  </g>
+</svg>

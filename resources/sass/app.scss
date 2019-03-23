@@ -1,14 +1,82 @@
-
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+body {
+  background: linear-gradient($purple, $purple-dark);
+  min-height: 100vh;
 }
+
+.title {
+  color: $white;
+  height: calc(120px + 8px);
+  padding: 40px;
+  text-align: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 650px;
+  border-radius: $border-radius;
+  padding: 20px;
+
+  h2 {
+    font-size: 17px;
+    color: $dark-grey;
+    margin-bottom: 20px;
+  }
+  .avatar {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    color: $black;
+    .first-name {
+      margin-bottom: 0;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: $border-radius;
+    }
+  }
+  .list {
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 5px 0;
+      color: $dark-grey;
+      &.paid {
+        color: $light-grey;
+      }
+      img {
+        margin-right: 8px;
+      }
+      p {
+        margin: 0;
+      }
+    }
+  }
+  .transaction-amount {
+    display: flex;
+    font-size: 80px;
+    color: #404040;
+    font-weight: 300;
+    label {
+      margin: 0 20px 0 0;
+    }
+    input {
+      border: none;
+      width: 100%;
+      outline: none;
+      color: #404040;
+      font-weight: 300;
+    }
+  }
+  img {
+    border-radius: $border-radius;
+  }
+}
+
