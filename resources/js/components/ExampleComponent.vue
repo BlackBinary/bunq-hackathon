@@ -61,35 +61,3 @@
         }
     }
 </script>
-<style scoped>
-    .camera-modal {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        position: absolute;
-        background-color: white;
-        z-index: 10;
-    }
-
-    .camera-stream {
-        width: 100%;
-        max-height: 100%;
-    }
-
-    .camera-modal-container {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        align-items: center;
-        margin-bottom: 24px;
-    }
-
-    .take-picture-button {
-        position: fixed;
-        right: 24px;
-        bottom: 90px;
-        z-index: 5;
-        display: flex;
-    }
-</style>
