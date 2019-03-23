@@ -61,3 +61,12 @@
         }
     }
 </script>
+<style scoped>
+    div#app {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+</style>
