@@ -107,7 +107,20 @@
                 axios.get(`/api/getjson/${this.hash}`).then((data) => {
                     if (data.status === 200) {
                         this.data = data.data;
-                        console.log(this.data);
+                        var responses = this.data['responses'][0]['textAnnotations'];
+                        console.log(responses);
+
+                        responses.forEach(responseVisualizer);
+                        function responseVisualizer(responseItem) {
+                            var responseContent = responseItem['description'];
+                            var responseLocation = responseItem['__ob__'];
+                            console.log(responseContent);
+                            console.log(responseLocation);
+//                            console.log(responseItem);
+
+                        }
+//                        console.log(responses);
+
                     }
                 });
             }
@@ -121,7 +134,9 @@
             const tracks = this.mediaStream.getTracks();
             tracks.map(track => track.stop())
         }
+
     }
+
 </script>
 
 <style scoped>
