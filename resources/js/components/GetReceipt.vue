@@ -10,18 +10,18 @@
             <div class="container-fluid p-0">
               <div class="row">
                 <div class="col-md-6 left">
-                  <h2>Stuur een betaling naar:</h2>
+                  <h2>Send a payment to:</h2>
                   <div class="avatar">
-                    <img src="https://bunq.me/assets/img/avatar-placeholder.svg"
+                    <img src="../../img/_DSC0112.3_cut.jpg"
                          class="rounded-circle" alt="Avatar">
                     <p class="first-name">Joost</p>
                   </div>
-                  <h2 class="mt-3">Je mag altijd meer betalen!</h2>
+                  <h2 class="mt-3">Of course you can pay me more!</h2>
                   <div class="list">
                     <div
                       class="item"
                       :class="{
-                                                'paid': names[index] !== 'Nog niet betaald...',
+                                                'paid': names[index] !== 'Not yet paid...',
                                                 'selected': selectedIndexes.includes(index)
                                             }"
                       v-for="(payment, index) in data"
@@ -54,22 +54,16 @@
             </div>
           </div>
           <div class="bottom-part">
-            <button :class="{ 'enough': amount > 0 }" :disabled="!amount > 0">Betaal veilig met iDEAL
+            <button :class="{ 'enough': amount > 0 }" :disabled="!amount > 0">Pay securely with iDEAL
             </button>
-            <p>Betaal in plaats daarvan met <a href="https://www.klarna.com/sofort/">Sofort</a></p>
+            <p>Pay with <a href="https://www.klarna.com/sofort/">Sofort</a> instead</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!--<img :src="hashImgUrl" alt="Receipt">-->
-    <!--<template v-if="data.responses[0]">-->
-    <!--{{ data.responses[0].textAnnotations[0].description }}-->
-    <!--</template>-->
   </div>
-
 </template>
-<style scss scoped>
+<style scoped>
   div#app {
     display: flex;
     align-items: center;
@@ -137,18 +131,18 @@
         response: [],
         amount: 0.00,
         names: [
-          'Nog niet betaald...',
+          'Not yet paid...',
           'Isabelle',
           'Floris',
           'Olivier',
           'Feline',
           'Esther',
-          'Nog niet betaald...',
+          'Not yet paid...',
           'Floris',
-          'Nog niet betaald...',
+          'Not yet paid...',
           'Isabelle',
           'Feline',
-          'Nog niet betaald...',
+          'Not yet paid...',
         ],
         selectedIndexes: []
       }
@@ -165,7 +159,7 @@
         });
       },
       getIcon(status) {
-        if (status !== 'Nog niet betaald...') {
+        if (status !== 'Not yet paid...') {
           return '/images/tick.svg';
         }
         return '/images/plus.svg';
@@ -197,7 +191,7 @@
     },
     destroyed() {
       const tracks = this.mediaStream.getTracks();
-      tracks.map(track => track.stop())
+      tracks.map(track => track.stop());
     }
 
   }

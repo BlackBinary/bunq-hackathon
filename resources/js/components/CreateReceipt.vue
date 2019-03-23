@@ -5,8 +5,8 @@
                 <video ref="video" class="camera-stream" />
             </div>
             <div class="bottom-part custom-flex">
-                <button @click="capture" class="ml-3">Maak een foto!</button>
-                <button @click="share">Deel de foto!</button>
+                <button @click="capture" class="ml-3">Take a picture!</button>
+                <button @click="share">Share it!</button>
             </div>
         </div>
     </div>
@@ -25,16 +25,16 @@
         mounted() {
             navigator.mediaDevices.getUserMedia({video: { facingMode: "environment" } })
                 .then(mediaStream => {
-                    this.mediaStream = mediaStream
-                    this.$refs.video.srcObject = mediaStream
+                    this.mediaStream = mediaStream;
+                    this.$refs.video.srcObject = mediaStream;
                     this.$refs.video.play()
                 })
-                .catch(error => console.error('getUserMedia() error:', error))
+                .catch(error => console.error('getUserMedia() error:', error));
         },
         methods: {
             capture() {
-                const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
-                const imageCapture = new window.ImageCapture(mediaStreamTrack)
+                const mediaStreamTrack = this.mediaStream.getVideoTracks()[0];
+                const imageCapture = new window.ImageCapture(mediaStreamTrack);
                 return imageCapture.takePhoto().then(blob => {
                     const data = new FormData();
                     data.append('receipt', blob, 'receiptImage');
@@ -61,8 +61,8 @@
             }
         },
         destroyed() {
-            const tracks = this.mediaStream.getTracks()
-            tracks.map(track => track.stop())
+            const tracks = this.mediaStream.getTracks();
+            tracks.map(track => track.stop());
         }
     }
 </script>
