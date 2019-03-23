@@ -25,13 +25,11 @@ class ApiController extends Controller
         ]);
     }
 
-    public function getReceipt($hash)
+    public function getJSON($hash)
     {
-        \Log::debug($this->getS3($this->createImageKey($hash)));
-        return response()->json([
-            'image' => $this->getS3($this->createImageKey($hash)),
-            'text' => $this->getS3($this->createTextKey($hash))
-        ]);
+        $result = $this->getS3($this->createTextKey($hash));
+
+        return $result['Body'];
     }
 
     public function createReceipt(Request $request)
@@ -44,7 +42,7 @@ class ApiController extends Controller
 
         $request = new AnnotateImageRequest();
         $request->setImage($base64Image);
-        $request->setFeature("TEXT_DETECTION");
+        $request->setFeature("DOCUMENT_TEXT_DETECTION");
         $gcvRequest = new GoogleCloudVision([$request], env('GOOGLE_CLOUD_KEY'));
         //send annotation request
         $response = $gcvRequest->annotate();

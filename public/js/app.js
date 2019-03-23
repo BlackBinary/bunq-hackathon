@@ -2015,28 +2015,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GetReceipt",
   props: ['hash'],
   data: function data() {
     return {
-      bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/'
+      bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/',
+      data: {
+        responses: []
+      }
     };
   },
   mounted: function mounted() {
-    console.log(this.hash);
+    this.fetch();
+  },
+  methods: {
+    fetch: function fetch() {
+      var _this = this;
+
+      axios.get("/api/getjson/".concat(this.hash)).then(function (data) {
+        if (data.status === 200) {
+          _this.data = data.data;
+          console.log(_this.data);
+        }
+      });
+    }
   },
   computed: {
     hashImgUrl: function hashImgUrl() {
       return "".concat(this.bucketUrl).concat(this.hash, ".png");
-    },
-    hashData: function hashData() {
-      return axios.get("".concat(this.bucketUrl).concat(this.hash, ".json")).then(function (data) {
-        console.log(data); // if (data.status === 200) {
-        //
-        //     this.hash = data.data.hash;
-        // }
-      });
     }
   }
 });
@@ -38039,10 +38047,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("img", { attrs: { src: _vm.hashImgUrl, alt: "Receipt" } }),
-    _vm._v("\n\n    " + _vm._s(_vm.hashData) + "\n")
-  ])
+  return _c(
+    "div",
+    [
+      _c("img", { attrs: { src: _vm.hashImgUrl, alt: "Receipt" } }),
+      _vm._v(" "),
+      _vm.data.responses[0]
+        ? [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.data.responses[0].textAnnotations[0].description) +
+                "\n    "
+            )
+          ]
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

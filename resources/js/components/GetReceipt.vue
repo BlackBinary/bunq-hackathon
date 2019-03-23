@@ -1,8 +1,9 @@
 <template>
     <div>
         <img :src="hashImgUrl" alt="Receipt">
-
-        {{ hashData }}
+        <template v-if="data.responses[0]">
+            {{ data.responses[0].textAnnotations[0].description }}
+        </template>
     </div>
 
 </template>
@@ -13,29 +14,29 @@
         props: ['hash'],
         data() {
             return {
-                bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/'
+                bucketUrl: 'https://bunq-hackathon.ams3.digitaloceanspaces.com/',
+                data: {
+                    responses: []
+                }
             }
-        }
-        ,
+        },
         mounted() {
-
-            console.log(this.hash);
-        }
-        ,
+            this.fetch();
+        },
+        methods: {
+            fetch() {
+                axios.get(`/api/getjson/${this.hash}`).then((data) => {
+                    if (data.status === 200) {
+                        this.data = data.data;
+                        console.log(this.data);
+                    }
+                });
+            }
+        },
         computed: {
             hashImgUrl() {
                 return `${this.bucketUrl}${this.hash}.png`;
             },
-            hashData() {
-                return axios.get(`${this.bucketUrl}${this.hash}.json`).then((data) => {
-                    console.log(data);
-                    // if (data.status === 200) {
-                    //
-                    //     this.hash = data.data.hash;
-                    // }
-                });
-
-            }
         }
     }
 </script>
