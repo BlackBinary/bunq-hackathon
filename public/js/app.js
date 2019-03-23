@@ -1865,82 +1865,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2016,6 +1940,85 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GetReceipt",
   props: ['hash'],
@@ -2046,6 +2049,12 @@ __webpack_require__.r(__webpack_exports__);
     hashImgUrl: function hashImgUrl() {
       return "".concat(this.bucketUrl).concat(this.hash, ".png");
     }
+  },
+  destroyed: function destroyed() {
+    var tracks = this.mediaStream.getTracks();
+    tracks.map(function (track) {
+      return track.stop();
+    });
   }
 });
 
@@ -37778,127 +37787,178 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 flex-container" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "container-fluid p-0" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-6" }, [
-                  _c("h2", [_vm._v("Stuur een betaling naar:")]),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("h2", { staticClass: "mt-3" }, [
-                    _vm._v("Je mag altijd meer betalen!")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "list" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "item",
-                        on: {
-                          click: function($event) {
-                            return _vm.setAmount(6.2)
-                          }
-                        }
-                      },
-                      [_vm._m(2), _vm._v(" "), _vm._m(3)]
-                    ),
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GetReceipt.vue?vue&type=template&id=42a2eca6&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GetReceipt.vue?vue&type=template&id=42a2eca6&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 flex-container" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "container-fluid p-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("h2", [_vm._v("Stuur een betaling naar:")]),
                     _vm._v(" "),
-                    _vm._m(4),
+                    _vm._m(1),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "item",
-                        on: {
-                          click: function($event) {
-                            return _vm.setAmount(2.35)
-                          }
-                        }
-                      },
-                      [_vm._m(5), _vm._v(" "), _vm._m(6)]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(7)
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "amount-group d-flex" }, [
-                    _c("h1", { staticClass: "transaction-amount" }, [
-                      _c("label", { attrs: { for: "amount" } }, [_vm._v("€")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.amount,
-                            expression: "amount"
-                          }
-                        ],
-                        attrs: { type: "number", step: ".01", id: "amount" },
-                        domProps: { value: _vm.amount },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.amount = $event.target.value
-                          }
-                        }
-                      })
+                    _c("h2", { staticClass: "mt-3" }, [
+                      _vm._v("Je mag altijd meer betalen!")
                     ]),
                     _vm._v(" "),
-                    _vm.checkAmount()
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "renew",
-                            on: {
-                              click: function($event) {
-                                _vm.amount = 0.0
-                              }
+                    _c("div", { staticClass: "list" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "item",
+                          on: {
+                            click: function($event) {
+                              return _vm.setAmount(6.2)
                             }
-                          },
-                          [
-                            _c("img", {
-                              attrs: {
-                                src: __webpack_require__(/*! ../../img/renew.svg */ "./resources/img/renew.svg"),
-                                alt: "renew"
+                          }
+                        },
+                        [_vm._m(2), _vm._v(" "), _vm._m(3)]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "item",
+                          on: {
+                            click: function($event) {
+                              return _vm.setAmount(2.35)
+                            }
+                          }
+                        },
+                        [_vm._m(5), _vm._v(" "), _vm._m(6)]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(7)
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "amount-group d-flex" }, [
+                      _c("h1", { staticClass: "transaction-amount" }, [
+                        _c("label", { attrs: { for: "amount" } }, [
+                          _vm._v("€")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.amount.toFixed(2),
+                              expression: "amount.toFixed(2)"
+                            }
+                          ],
+                          attrs: { type: "number", step: ".01", id: "amount" },
+                          domProps: { value: _vm.amount.toFixed(2) },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            })
-                          ]
-                        )
-                      : _vm._e()
+                              _vm.$set(
+                                _vm.amount,
+                                "toFixed(2)",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm.checkAmount()
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "renew",
+                              on: {
+                                click: function($event) {
+                                  _vm.amount = 0.0
+                                }
+                              }
+                            },
+                            [
+                              _c("img", {
+                                attrs: {
+                                  src: __webpack_require__(/*! ../../img/renew.svg */ "./resources/img/renew.svg"),
+                                  alt: "renew"
+                                }
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6" }, [
+                    _c("img", {
+                      staticClass: "w-100",
+                      attrs: { src: _vm.hashImgUrl, alt: "Receipt" }
+                    })
                   ])
-                ]),
-                _vm._v(" "),
-                _vm._m(8)
+                ])
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "bottom-part" }, [
-            _c(
-              "button",
-              {
-                class: { enough: _vm.checkAmount() },
-                attrs: { disabled: !_vm.checkAmount() }
-              },
-              [_vm._v("Betaal veilig met iDEAL")]
-            ),
+            ]),
             _vm._v(" "),
-            _vm._m(9)
+            _c("div", { staticClass: "bottom-part" }, [
+              _c(
+                "button",
+                {
+                  class: { enough: _vm.checkAmount() },
+                  attrs: { disabled: !_vm.checkAmount() }
+                },
+                [_vm._v("Betaal veilig met iDEAL")]
+              ),
+              _vm._v(" "),
+              _vm._m(8)
+            ])
           ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v("\n\n    " + _vm._s(_vm.hashData) + "\n    "),
+      _c("img", { attrs: { src: _vm.hashImgUrl, alt: "Receipt" } }),
+      _vm._v(" "),
+      _vm.data.responses[0]
+        ? [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.data.responses[0].textAnnotations[0].description) +
+                "\n    "
+            )
+          ]
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
@@ -38007,17 +38067,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6" }, [
-      _c("img", {
-        staticClass: "w-100",
-        attrs: { src: __webpack_require__(/*! ../../img/IMG_5923.jpg */ "./resources/img/IMG_5923.jpg"), alt: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("p", [
       _vm._v("Betaal in plaats daarvan met "),
       _c("a", { attrs: { href: "https://www.klarna.com/sofort/" } }, [
@@ -38026,46 +38075,6 @@ var staticRenderFns = [
     ])
   }
 ]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/GetReceipt.vue?vue&type=template&id=42a2eca6&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/GetReceipt.vue?vue&type=template&id=42a2eca6&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("img", { attrs: { src: _vm.hashImgUrl, alt: "Receipt" } }),
-      _vm._v(" "),
-      _vm.data.responses[0]
-        ? [
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.data.responses[0].textAnnotations[0].description) +
-                "\n    "
-            )
-          ]
-        : _vm._e()
-    ],
-    2
-  )
-}
-var staticRenderFns = []
 render._withStripped = true
 
 
@@ -50205,17 +50214,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-
-/***/ "./resources/img/IMG_5923.jpg":
-/*!************************************!*\
-  !*** ./resources/img/IMG_5923.jpg ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/IMG_5923.jpg?b0d825fa829d96e638da121884368cd8";
 
 /***/ }),
 
